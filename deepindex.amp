@@ -244,6 +244,11 @@
         box-shadow: 0px 2px 2px #666;
         /* bo nie mozna ustawic szerokosci na wiecej niz 80% viewportu, ale taki hack dziala */
     }
+
+    #mainSidebar * {
+        user-select: none;
+    }
+
     #mainSidebar > ul {
         position: relative;
         width: calc(100% + 20vw);

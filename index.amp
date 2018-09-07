@@ -181,7 +181,6 @@
         /*position: relative;*/
     }
 
-
     #navigation .hamburger {
         position: absolute;
         top: 0px;
@@ -215,9 +214,6 @@
         background-position: -70px -110px;
     }
 
-    #mainSidebar * {
-        user-select: none
-    }
 
     #mainSidebar {
         padding: 0 20vw 0 0;
@@ -229,6 +225,11 @@
         box-shadow: 0px 2px 2px #666;
         /* bo nie mozna ustawic szerokosci na wiecej niz 80% viewportu, ale taki hack dziala */
     }
+
+    #mainSidebar * {
+        user-select: none;
+    }
+
     #mainSidebar ul {
         position: relative;
         width: calc(100% + 20vw);
