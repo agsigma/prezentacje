@@ -156,7 +156,6 @@
     </a>
     <div id="main-menu-button" role="button" tabindex="0" on="tap:mainSidebar.toggle">
             <div class="hamburger" id="mainMenuHamburger"></div>
-            <!-- <div class="closeButton" id="mainMenuCloseButton"></div> -->
     </div>
 </div>
 
@@ -235,9 +234,13 @@
         height: 54px;
         line-height: 54px;
         padding-left: 20px;
+        position: relative;
     }
     #mainSidebar li a {
         color: #222;
+        display: block;
+        height: 100%;
+        width: 100%;
     }
     #mainSidebar li a:hover {
         color: #000;
