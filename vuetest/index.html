@@ -89,11 +89,6 @@
 <div id="app">
   	<div>Portals: {{ $store.state.db.portals.length }}, Tags: {{ $store.state.db.tags.length }}, Ilosc par tagPortal: {{ $store.getters.calculatePortalTagsPairs }}</div>
   	<div>{{ $store.state.ui.isBlocked ? "TAK" : "NIE" }}</div>
-  	<!-- <ul id="example-1">
-  	<li v-for="item in items">
-    	{{ item.message }}
-  	</li>
-	</ul> -->
 	<button v-on:click="buttonClickRemovePortal">Remove portal - najbardziej obciazajaca obliczeniowo operacja jaka mozna sobie wyobrazic - celowo zaimplementowana srednio efektywnie</button>
 		<button v-on:click="buttonClickRemoveTag">Remove tag</button>
 	<button v-on:click="calculatePortalTagsPairs">calculatePortalTagsPair</button>
