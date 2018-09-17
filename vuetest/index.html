@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.1.1/vuex.min.js"></script>
+	<script type="text/javascript">
+		var genRandomString = (l=20) => _.fill(Array(l), null)
+			.map(x=>String.fromCharCode(97+_.random(24)))
+			.join('');
+		
+		var genPortal = function() {
+			var id = genRandomString(); 
+			return {
+				id: id,
+				name: 'name_' + id,
+				description: 'This is portal name_' + id
+			}
+		}
+
+		var genMockData = function() {
+			var data = {
+				db: {
+					tags: [],
+					portals: []
+				},
+				ui: {
+					isBlocked: false
+				}
+			}
+		};
+
+		
+
+		var getRandomPortal = function(portals) {
+			return portals[_.random(portals.length-1)];
+		}
+
+		
+
+		var genTag = function(portals) {
+			var tagName = genRandomString();
+			var tagId = genRandomString(6);
+			var res = {
+				id: tagId,
+				name: tagName,
+				redirectTo: null,
+				description: 'sdffsd dsfdfs  dsf 32 3e2 e2f',
+				portals: []
+			}
+			var linkedPortalsNo = _.random(4);
+			for(let l1=0; l1 < linkedPortalsNo; l1++) {
+				var portal = getRandomPortal(portals);
+				var tagPortal = {
+					portalId: portal.id,
+					tagDescription: portal.name + " portal[" +  portal.id + "] description for tag " + tagName + " with id " + tagId
+				};
+				res.portals.push(tagPortal);
+			};
+			return res;
+		}
+
+		var genMockData = function() {
+			var data = {
+				db: {
+					tags: [],
+					portals: []
+				},
+				ui: {
+					isBlocked: false
+				}
+			};
+			_.each(Array(5000), function() {
+				data.db.portals.push(genPortal());
+			});
+			_.each(Array(20000), function() {
+				data.db.tags.push(genTag(data.db.portals));
+			});
+			return data;
+		};
+		
+		var state = genMockData();
+
+
+	</script>
+</head>
+<body>
+<div id="app">
+  	<div>Portals: {{ $store.state.db.portals.length }}, Tags: {{ $store.state.db.tags.length }}, Ilosc par tagPortal: {{ $store.getters.calculatePortalTagsPairs }}</div>
+  	<div>{{ $store.state.ui.isBlocked ? "TAK" : "NIE" }}</div>
+  	<!-- <ul id="example-1">
+  	<li v-for="item in items">
+    	{{ item.message }}
+  	</li>
+	</ul> -->
+	<button v-on:click="buttonClickRemovePortal">Remove portal - najbardziej obciazajaca obliczeniowo operacja jaka mozna sobie wyobrazic - celowo zaimplementowana srednio efektywnie</button>
+		<button v-on:click="buttonClickRemoveTag">Remove tag</button>
+	<button v-on:click="calculatePortalTagsPairs">calculatePortalTagsPair</button>
+</div>
+<script>
+	new Vue({
+		'el': '#app',
+		'store': new Vuex.Store({
+			state: state,
+			getters: {
+			    calculatePortalTagsPairs: function(state) {
+			    	var res = 0;
+					state.db.tags.forEach(function(tag) {
+						res+=Object.keys(tag.portals).length||0;
+					});
+					return res;
+					// alert(res);
+			    }
+			},
+			mutations: {
+				increment (state) {
+				    state.count++
+				}, removeLastPortal: function(state) {
+				    var portal = state.db.portals.pop();
+				    state.ui.isBlocked = !state.ui.isBlocked;
+				    state.db.tags.forEach(function(tag) {
+				    	var hasPortalWithGivenId = false;
+				    	tag.portals.forEach(tagPortal => void( hasPortalWithGivenId = tagPortal.portalId || hasPortalWithGivenId ));
+				    	if (hasPortalWithGivenId) {
+				    		tag.portals = tag.portals.filter(function(tagPortal) {	
+				    			return tagPortal.portalId != portal.id;
+				    		});
+				    	}
+				    });
+				}, removeLastTag: function(state) {
+				    state.db.tags.pop();
+				    state.ui.isBlocked = !state.ui.isBlocked;
+				}
+
+			}
+		}),
+		'methods': {
+			'buttonClickRemovePortal': function() {
+			    this.$store.commit('removeLastPortal')
+			},
+			'buttonClickRemoveTag': function() {
+			    this.$store.commit('removeLastTag')
+			},
+			'calculatePortalTagsPairs': function() {
+				alert(this.$store.getters.calculatePortalTagsPairs);
+			}
+		}
+	});
+
+
+</script>
+</body>
+</html>
