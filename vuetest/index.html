@@ -94,7 +94,7 @@
 		<button v-on:click="buttonClickRemoveTag">Remove tag</button>
 		<button v-on:click="buttonClickRemoveRandomTag">removeRandomTag</button>
 	<button v-on:click="calculatePortalTagsPairs">calculatePortalTagsPair</button>
-	<button v-on:click="clickSortTags" disabled>sort tags</button>
+	<button v-on:click="clickSortTags">sort tags</button>
 	<input v-on:keyup="changeRegexpFilter" placeholder="filter" :value="$store.state.ui.textFilter">
 	<test-component v-bind:mydata="$store.getters.calculatePortalTagsPairs" v-bind:tagslist="$store.state.db.tags">
 	</test-component>
@@ -116,7 +116,7 @@
 				}
 				return this.tagslist.filter(function(tag) {
 					return regExp.test(tag.id);
-				});
+				}).slice(0,1000);
 			}
 		},
 		//template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
@@ -211,7 +211,7 @@
 				this.$store.commit('removeRandomTag');	
 			},
 			'clickSortTags': function() {
-				var fragment = prompt('Podaj czesc tagu');
+				var fragment = ""//prompt('Podaj czesc tagu');
 				var regExp;
 				regExp = new RegExp(fragment);
 				console.log(fragment, regExp);
