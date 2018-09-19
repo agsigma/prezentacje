@@ -75,7 +75,7 @@
 			_.each(Array(5000), function() {
 				data.db.portals.push(genPortal());
 			});
-			_.each(Array(20000), function() {
+			_.each(Array(50000), function() {
 				data.db.tags.push(genTag(data.db.portals));
 			});
 			return data;
@@ -116,7 +116,7 @@
 				}
 				return this.tagslist.filter(function(tag) {
 					return regExp.test(tag.id);
-				}).slice(0,1000);
+				}).slice(0,500);
 			}
 		},
 		//template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
@@ -226,10 +226,10 @@
 					this.$store.commit('orderBy');
 				}
 			},
-			changeRegexpFilter: function(event) {
+			changeRegexpFilter: _.debounce(function(event) {
 				this.$store.commit("uiUpdateFilterText", event.target.value);
 
-			}
+			}, 300)
 		}
 	});
 
