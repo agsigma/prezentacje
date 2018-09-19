@@ -41,7 +41,7 @@
 
 		var genTag = function(portals) {
 			var tagName = genRandomString();
-			var tagId = genRandomString(6);
+			var tagId = genRandomString(8);
 			var res = {
 				id: tagId,
 				name: tagName,
@@ -49,7 +49,7 @@
 				description: 'sdffsd dsfdfs  dsf 32 3e2 e2f',
 				portals: []
 			}
-			var linkedPortalsNo = _.random(4);
+			var linkedPortalsNo = _.random(6);
 			for(let l1=0; l1 < linkedPortalsNo; l1++) {
 				var portal = getRandomPortal(portals);
 				var tagPortal = {
@@ -68,7 +68,8 @@
 					portals: []
 				},
 				ui: {
-					isBlocked: false
+					isBlocked: false,
+					textFilter: ""
 				}
 			};
 			_.each(Array(5000), function() {
@@ -91,10 +92,53 @@
   	<div>{{ $store.state.ui.isBlocked ? "TAK" : "NIE" }}</div>
 	<button v-on:click="buttonClickRemovePortal">Remove portal - najbardziej obciazajaca obliczeniowo operacja jaka mozna sobie wyobrazic - celowo zaimplementowana srednio efektywnie</button>
 		<button v-on:click="buttonClickRemoveTag">Remove tag</button>
+		<button v-on:click="buttonClickRemoveRandomTag">removeRandomTag</button>
 	<button v-on:click="calculatePortalTagsPairs">calculatePortalTagsPair</button>
+	<button v-on:click="clickSortTags" disabled>sort tags</button>
+	<input v-on:keyup="changeRegexpFilter" placeholder="filter" :value="$store.state.ui.textFilter">
+	<test-component v-bind:mydata="$store.getters.calculatePortalTagsPairs" v-bind:tagslist="$store.state.db.tags">
+	</test-component>
 </div>
 <script>
-	new Vue({
+	Vue.component('test-component', {
+		data: function () {
+			return { count: 0 }
+		},
+		props: ['mydata', 'tagslist'],
+		computed: {
+			filteredtags: function() {
+				if (this.$store.state.ui.textFilter && this.$store.state.ui.textFilter.length) {
+					var regExp = new RegExp(this.$store.state.ui.textFilter);
+				} else {
+					regExp = {
+						test: x=>true
+					}
+				}
+				return this.tagslist.filter(function(tag) {
+					return regExp.test(tag.id);
+				});
+			}
+		},
+		//template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+		template: "<div>Blablabla \
+			<div v-for='tag in filteredtags' :key='tag.id'> \
+			{{tag.id}} \
+			<span style='color:red' v-on:click='removeTag(tag)'>usun</span>    \
+			<span style='color:green' v-on:click='showTag(tag)'>pokaz</span>    \
+			</div>								\
+		</div>",
+		'methods': {
+			'removeTag': function(tag) {
+			    this.$store.commit('removeTag', tag.id);
+			},
+			'showTag': function(tag) {
+				alert(JSON.stringify(tag, '\n', null));
+			}
+		}
+	});
+
+
+	app = new Vue({
 		'el': '#app',
 		'store': new Vuex.Store({
 			state: state,
@@ -123,22 +167,68 @@
 				    		});
 				    	}
 				    });
+				}, removeRandomTag: function(state) {
+				    state.db.tags.splice(_.random(state.db.tags.length-1), 1); // mutates array
+				    state.ui.isBlocked = !state.ui.isBlocked;
 				}, removeLastTag: function(state) {
 				    state.db.tags.pop();
 				    state.ui.isBlocked = !state.ui.isBlocked;
+				},
+				removeTag: function(state, tagId) {
+				    var tagIndex = state.db.tags.findIndex(lTag => lTag.id == tagId)
+				    console.log(tagId);
+				    console.log(tagIndex);
+				    if (tagIndex != -1) {
+
+				    	state.db.tags.splice(tagIndex, 1); // mutates array
+				    	state.ui.isBlocked = !state.ui.isBlocked;
+				    }
+				},
+				orderBy: function(state, orderFunction) {
+					console.log('1');
+				    orderFunction = orderFunction || (tag => tag.id.charCodeAt(0)*300 + tag.id.charCodeAt(1));
+				    // state.db.tags.forEach(x=>void(console.log.bind(console)(x.id, orderFunction(x))));
+				    state.db.tags = _.orderBy(state.db.tags, orderFunction);
+				    console.log('2');
+				},
+				uiUpdateFilterText: function(state, newFilterText) {
+					state.ui.textFilter = newFilterText;
 				}
 
 			}
 		}),
 		'methods': {
 			'buttonClickRemovePortal': function() {
-			    this.$store.commit('removeLastPortal')
+			    this.$store.commit('removeLastPortal');
 			},
 			'buttonClickRemoveTag': function() {
-			    this.$store.commit('removeLastTag')
+			    this.$store.commit('removeLastTag');
 			},
 			'calculatePortalTagsPairs': function() {
 				alert(this.$store.getters.calculatePortalTagsPairs);
+			},
+			'buttonClickRemoveRandomTag': function() {
+				this.$store.commit('removeRandomTag');	
+			},
+			'clickSortTags': function() {
+				var fragment = prompt('Podaj czesc tagu');
+				var regExp;
+				regExp = new RegExp(fragment);
+				console.log(fragment, regExp);
+				if (fragment && fragment.length) {
+					// alert('not implemented');
+					// return;
+					this.$store.commit('orderBy', function(tag) {
+						// console.log( tag.name );
+						return regExp.test(tag.id) ? -1 - tag.portals.length : 0;
+					});
+				} else {
+					this.$store.commit('orderBy');
+				}
+			},
+			changeRegexpFilter: function(event) {
+				this.$store.commit("uiUpdateFilterText", event.target.value);
+
 			}
 		}
 	});
