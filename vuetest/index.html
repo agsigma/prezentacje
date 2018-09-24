@@ -108,15 +108,28 @@
 		computed: {
 			filteredtags: function() {
 				if (this.$store.state.ui.textFilter && this.$store.state.ui.textFilter.length) {
-					var regExp = new RegExp(this.$store.state.ui.textFilter);
+					// var regExp = new RegExp(this.$store.state.ui.textFilter);
+					var substring = this.$store.state.ui.textFilter;
+					var regExp = {
+						test: function(s) {
+							var pos = s.indexOf(substring);
+							if (pos == -1) {
+								return 0;
+							} else if (pos === 0) {
+								return 2;
+							} else {
+								return 1;
+							}
+						}
+					}
 				} else {
 					regExp = {
 						test: x=>true
 					}
 				}
-				return this.tagslist.filter(function(tag) {
+				return _.orderBy(this.tagslist.filter(function(tag) {
 					return regExp.test(tag.id);
-				}).slice(0,500);
+				}).slice(0,500), tag => -regExp.test(tag.id) );
 			}
 		},
 		//template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
@@ -186,7 +199,7 @@
 				},
 				orderBy: function(state, orderFunction) {
 					console.log('1');
-				    orderFunction = orderFunction || (tag => tag.id.charCodeAt(0)*300 + tag.id.charCodeAt(1));
+				    orderFunction = orderFunction || (tag => tag.id);//(tag => tag.id.charCodeAt(0)*300 + tag.id.charCodeAt(1));
 				    // state.db.tags.forEach(x=>void(console.log.bind(console)(x.id, orderFunction(x))));
 				    state.db.tags = _.orderBy(state.db.tags, orderFunction);
 				    console.log('2');
