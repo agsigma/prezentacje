@@ -12,6 +12,7 @@
 
 <!-- <link rel="stylesheet" type="text/css" href="http://localhost/AGORA/AMP/amp/tests/sport/sigma/main.css"> -->
 <style amp-custom>
+
 /*
 *
 *  DEFAULTs
@@ -815,7 +816,6 @@ a {
   height: auto;
   box-shadow: 0px 2px 2px #666;
   /* bo nie mozna ustawic szerokosci na wiecej niz 80% viewportu, ale tak dziala */
-  /* fix for some element added dynamicly by google */
 }
 #mainSidebar * {
   user-select: none;
@@ -824,6 +824,7 @@ a {
   position: relative;
   display: block;
   width: calc(100% + 20vw);
+  /* fix for some element added dynamicly by google */
 }
 #mainSidebar > ul > li {
   font-size: 17px;
@@ -834,23 +835,22 @@ a {
 }
 #mainSidebar > ul > li span:before {
   content: "";
-  color: black;
   position: absolute;
+  top: 25px;
+  left: 18px;
   width: 7px;
   height: 7px;
   border-top: 2px solid #222;
   border-left: 2px solid #222;
-  top: 25px;
-  left: 18px;
   transform: rotate(45deg);
+  transition: transform 0.25s ease-in-out;
 }
 #mainSidebar > ul > li span.expanded:before {
   top: 21px;
   transform: rotate(225deg);
 }
 #mainSidebar > ul ul {
-  margin-left: -45px;
-  padding: 10px 0px 10px 45px;
+  padding: 10px 0px;
   background: #F5F5F5;
   display: none;
 }
@@ -863,8 +863,8 @@ a {
   height: 30px;
   background: #F5F5F5;
 }
-#mainSidebar > ul #mainSidebar > ul ul.show {
-  display: block;
+#mainSidebar > ul ~ div {
+  display: none;
 }
 #mainSidebar li > a, #mainSidebar li > span {
   color: #222;
@@ -886,9 +886,7 @@ a {
 #mainSidebar .expand {
   cursor: pointer;
 }
-#mainSidebar ul ~ div {
-  display: none;
-}
+
 
 </style>
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
