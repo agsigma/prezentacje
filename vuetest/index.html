@@ -228,13 +228,22 @@
 					portalNameTest = (x => true);
 				}
 
+				// var result = this.tagslist.filter(function(tag) {
+				// 	return isActiveTag(tag.id) || !!tagNameTest(tag.name, tag);
+				// }); // odfiltrowujemy
+				// result = result.filter(function(tag) {
+				// 	return isActiveTag(tag.id) || !!portalNameTest(tag.portals.map(tagPortal => tagPortal.portalRef.name));
+				// }); // odfiltrowujemy
+				// console.log('!!!', tagNameOrderBy, isActiveTag(this.$store.state.ui.mainPanel.activeTagId), this.$store.state.ui.mainPanel.activeTagId);
+
 				var result = this.tagslist.filter(function(tag) {
-					return isActiveTag(tag.id) || !!tagNameTest(tag.name, tag);
+					return !!tagNameTest(tag.name, tag);
 				}); // odfiltrowujemy
 				result = result.filter(function(tag) {
-					return isActiveTag(tag.id) || !!portalNameTest(tag.portals.map(tagPortal => tagPortal.portalRef.name));
+					return !!portalNameTest(tag.portals.map(tagPortal => tagPortal.portalRef.name));
 				}); // odfiltrowujemy
 				console.log('!!!', tagNameOrderBy, isActiveTag(this.$store.state.ui.mainPanel.activeTagId), this.$store.state.ui.mainPanel.activeTagId);
+
 				result = _.orderBy(result, tag => -tagNameOrderBy(tag.name, tag) );
 				result = result.slice(0,100)
 				// console.log(result.map(x=>x.name).join(' , '));
