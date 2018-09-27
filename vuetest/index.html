@@ -108,7 +108,8 @@
 					mainPanel: {
 						expandedTags: {},
 						activeTagId: null,
-						activeTagOldNoOfTaggedArticles: null
+						activeTagOldNoOfTaggedArticles: null,
+						isFrozen: false
 					}
 				}
 			};
@@ -196,10 +197,10 @@
 						if (pos == -1) {
 							return -200000000+noOfTagedArticles;
 						} else if (pos === 0) {
-							return 200000000 - noOfTagedArticles;
+							return 200000000 + noOfTagedArticles;
 						} else {
 							// console.log(tagData.noOfTagedArticles);
-							return 200000000+noOfTagedArticles;
+							return 200000000;
 						}
 					};
 					var tagNameTest = function(s, tagData) {
@@ -243,6 +244,7 @@
 				return result;
 			}
 		},
+
 		//template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
 		// template: `
 		// <table class="table">
@@ -260,10 +262,16 @@
 		// </table>`,
 		template: `
 		<table class="table">
-			<panel-list-row v-bind:tag="tag" v-for='tag in filteredtags' :key='tag.id'>
+			<panel-list-row v-bind:tag="tag" v-for='tag in filteredtags2()' :key='tag.id'>
 			</panel-list-row>
 		</table>`,
 		'methods': {
+			'filteredtags2' : function() {
+				if (!this.lastFilteredTags || !this.$store.state.ui.mainPanel.isFrozen) {
+					this.lastFilteredTags = this.filteredtags;
+				} 				
+				return this.lastFilteredTags;
+			},
 			'removeTag': function(tag) {
 			    this.$store.commit('removeTag', tag.id);
 			},
@@ -375,6 +383,7 @@
 				    state.count++
 				}, 
 				removeLastPortal: function(state) {
+					state.ui.mainPanel.isFrozen = false;
 				    var portal = state.db.portals.pop();
 				    state.ui.isBlocked = !state.ui.isBlocked;
 				    state.db.tags.forEach(function(tag) {
@@ -388,10 +397,12 @@
 				    });
 				}, 
 				removeRandomTag: function(state) {
+					state.ui.mainPanel.isFrozen = false;
 				    state.db.tags.splice(_.random(state.db.tags.length-1), 1); // mutates array
 				    state.ui.isBlocked = !state.ui.isBlocked;
 				}, 
 				removeLastTag: function(state) {
+					state.ui.mainPanel.isFrozen = false;
 				    state.db.tags.pop();
 				    state.ui.isBlocked = !state.ui.isBlocked;
 				},
@@ -422,6 +433,7 @@
 				    }				    
 				},
 				orderBy: function(state, orderFunction) {
+					state.ui.mainPanel.isFrozen = false;
 					console.log('1');
 				    orderFunction = orderFunction || (tag => tag.id);//(tag => tag.id.charCodeAt(0)*300 + tag.id.charCodeAt(1));
 				    // state.db.tags.forEach(x=>void(console.log.bind(console)(x.id, orderFunction(x))));
@@ -430,16 +442,20 @@
 				},
 				uiUpdateFilterText: function(state, newFilterText) {
 					state.ui.textFilter = newFilterText;
+					state.ui.mainPanel.isFrozen = false;
 				},
 				uiUpdatePortalFilterText: function(state, newFilterText) {
 					state.ui.portalNameFilter = newFilterText;
+					state.ui.mainPanel.isFrozen = false;
 				},
 				UImainPanelshowHideTag: function(state, tagId) {
 					state.ui.mainPanel.expandedTags[tagId] = !state.ui.mainPanel.expandedTags[tagId];
+					state.ui.mainPanel.isFrozen = true;
 				},
 				UIsetActivePanelTag: function(state, data) {
 					// to plus triki w sortoweaniu zeby nam aktualny tag nie znikal z widokow po usunieciu portalu(z powodu zmniejszenia liczby powiazanych artykulow)
 					console.log('UIsetActivePanelTag', data, data.tagId);
+					state.ui.mainPanel.isFrozen = true;
 					if (state.ui.mainPanel.activeTagId != data.tagId) {
 						state.ui.mainPanel.activeTagId = data.tagId;					
 						state.ui.mainPanel.activeTagOldNoOfTaggedArticles = data.activeTagNoOfTaggedArticles;
