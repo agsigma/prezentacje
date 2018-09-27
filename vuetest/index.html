@@ -2,20 +2,45 @@
 <html>
 <head>
 	<title></title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<!-- <script src="https://vuejs.org/js/vue.min.js"></script> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.1.1/vuex.min.js"></script>
 	<script type="text/javascript">
+		var wordsList = ["łękowody", "chrzęszczyżewoszyce", "account","act","addition","adjustment","advertisement","agreement","air","amount","amusement","animal","answer","apparatus","approval","argument","art","attack","attempt","attention","attraction","authority","back","balance","base","behavior","belief","birth","bit","bite","blood","blow","body","brass","bread","breath","brother","building","burn","burst","business","butter","canvas","care","cause","chalk","chance","change","cloth","coal","color","comfort","committee","company","comparison","competition","condition","connection","control","cook","copper","copy","cork","cotton","cough","country","cover","crack","credit","crime","crush","cry","current","curve","damage","danger","daughter","day","death","debt","decision","degree","design","desire","destruction","detail","development","digestion","direction","discovery","discussion","disease","disgust","distance","distribution","division","doubt","drink","driving","dust","earth","edge","education","effect","end","error","event","example","exchange","existence","expansion","experience","expert","fact","fall","family","father","fear","feeling","fiction","field","fight","fire","flame","flight","flower","fold","food","force","form","friend","front","fruit","glass","gold","government","grain","grass","grip","group","growth","guide","harbor","harmony","hate","hearing","heat","help","history","hole","hope","hour","humor","ice","idea","impulse","increase","industry","ink","insect","instrument","insurance","interest","invention","iron","jelly","join","journey","judge","jump","kick","kiss","knowledge","land","language","laugh","law","lead","learning","leather","letter","level","lift","light","limit","linen","liquid","list","look","loss","love","machine","man","manager","mark","market","mass","meal","measure","meat","meeting","memory","metal","middle","milk","mind","mine","minute","mist","money","month","morning","mother","motion","mountain","move","music","name","nation","need","news","night","noise","note","number","observation","offer","oil","operation","opinion","order","organization","ornament","owner","page","pain","paint","paper","part","paste","payment","peace","person","place","plant","play","pleasure","point","poison","polish","porter","position","powder","power","price","print","process","produce","profit","property","prose","protest","pull","punishment","purpose","push","quality","question","rain","range","rate","ray","reaction","reading","reason","record","regret","relation","religion","representative","request","respect","rest","reward","rhythm","rice","river","road","roll","room","rub","rule","run","salt","sand","scale","science","sea","seat","secretary","selection","self","sense","servant","sex","shade","shake","shame","shock","side","sign","silk","silver","sister","size","sky","sleep","slip","slope","smash","smell","smile","smoke","sneeze","snow","soap","society","son","song","sort","sound","soup","space","stage","start","statement","steam","steel","step","stitch","stone","stop","story","stretch","structure","substance","sugar","suggestion","summer","support","surprise","swim","system","talk","taste","tax","teaching","tendency","test","theory","thing","thought","thunder","time","tin","top","touch","trade","transport","trick","trouble","turn","twist","unit","use","value","verse","vessel","view","voice","walk","war","wash","waste","water","wave","wax","way","weather","week","weight","wind","wine","winter","woman","wood","wool","word","work","wound","writing","year"].concat([
+  "angle",   "ant",   "apple",   "arch",   "arm",   "army",   "baby",   "bag",   "ball",   "band",   "basin",   "basket",   "bath",   "bed",   "bee",   "bell",   "berry",   "bird",   "blade",   "board",   "boat",   "bone",   "book",   "boot",   "bottle",   "box",   "boy",   "brain",   "brake",   "branch",   "brick",   "bridge",   "brush",   "bucket",   "bulb",   "button",   "cake",   "camera",   "card",   "cart",   "carriage",   "cat",   "chain",   "cheese",   "chest",   "chin",   "church",   "circle",   "clock",   "cloud",   "coat",   "collar",   "comb",   "cord",   "cow",   "cup",   "curtain",   "cushion",   "dog",   "door",   "drain",   "drawer",   "dress",   "drop",   "ear",   "egg",   "engine",   "eye",   "face",   "farm",   "feather",   "finger",   "fish",   "flag",   "floor",   "fly",   "foot",   "fork",   "fowl",   "frame",   "garden",   "girl",   "glove",   "goat",   "gun",   "hair",   "hammer",   "hand",   "hat",   "head",   "heart",   "hook",   "horn",   "horse",   "hospital",   "house",   "island",   "jewel",   "kettle",   "key",   "knee",   "knife",   "knot",   "leaf",   "leg",   "library",   "line",   "lip",   "lock",   "map",   "match",   "monkey",   "moon",   "mouth",   "muscle",   "nail",   "neck",   "needle",   "nerve",   "net",   "nose",   "nut",   "office",   "orange",   "oven",   "parcel",   "pen",   "pencil",   "picture",   "pig",   "pin",   "pipe",   "plane",   "plate",   "plough/plow",   "pocket",   "pot",   "potato",   "prison",   "pump",   "rail",   "rat",   "receipt",   "ring",   "rod",   "roof",   "root",   "sail",   "school",   "scissors",   "screw",   "seed",   "sheep",   "shelf",   "ship",   "shirt",   "shoe",   "skin",   "skirt",   "snake",   "sock",   "spade",   "sponge",   "spoon",   "spring",   "square",   "stamp",   "star",   "station",   "stem",   "stick",   "stocking",   "stomach",   "store",   "street",   "sun",   "table",   "tail",   "thread",   "throat",   "thumb",   "ticket",   "toe",   "tongue",   "tooth",   "town",   "train",   "tray",   "tree",   "trousers",   "umbrella",   "wall",   "watch",   "wheel",   "whip",   "whistle",   "window",   "wing",   "wire",   "worm" ]);
+
 		var genRandomString = (l=20) => _.fill(Array(l), null)
 			.map(x=>String.fromCharCode(97+_.random(24)))
 			.join('');
+
+		// wordsList = _.fill(Array(2000), null)
+		// 	.map((x, no)=>'łękowody'+no)
+
+		var usedWords = {};
+
+		var genUniqueRandomWord = function(n =2, delimiter = " ") {
+			var word;
+			var genWord = (n=2) => _.fill(Array(n), null)
+				.map(x => wordsList[_.random(wordsList.length-1)])
+				.join(delimiter);
+			while (!word || usedWords[word] === true) {
+				word = genWord(n, delimiter);
+			}
+			usedWords[word] = true;
+			return word;
+		}
+
 		
 		var genPortal = function() {
-			var id = genRandomString(); 
+			var id = genRandomString(6); 
 			return {
 				id: id,
-				name: 'name_' + id,
-				description: 'This is portal name_' + id
+				name: genUniqueRandomWord(2).toUpperCase(),
+				description: 'This is portal name_' + id,
+				redirect: Math.random() <0.5 ? "http://www.sport.pl" : ""
 			}
 		}
 
@@ -31,31 +56,40 @@
 			}
 		};
 
-		
+		var genRandomDate = function randomDate(start = new Date(2017, 0, 1), end = new Date()) {
+		    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+		}
+
+	
 
 		var getRandomPortal = function(portals) {
 			return portals[_.random(portals.length-1)];
 		}
 
-		
+				
 
 		var genTag = function(portals) {
-			var tagName = genRandomString();
-			var tagId = genRandomString(8);
+			var tagName = genUniqueRandomWord(2);
+			var tagId = tagName.replace(/\s+/gm, '-');genRandomString(8);
 			var res = {
 				id: tagId,
 				name: tagName,
-				redirectTo: null,
+				creationTime: genRandomDate(),
 				description: 'sdffsd dsfdfs  dsf 32 3e2 e2f',
-				portals: []
+				portals: [],
+				noOfTagedArticles: 0
 			}
 			var linkedPortalsNo = _.random(6);
 			for(let l1=0; l1 < linkedPortalsNo; l1++) {
 				var portal = getRandomPortal(portals);
 				var tagPortal = {
 					portalId: portal.id,
-					tagDescription: portal.name + " portal[" +  portal.id + "] description for tag " + tagName + " with id " + tagId
+					redirectTo: null,
+					tagDescription: portal.name + " portal[" +  portal.id + "] description for tag " + tagName + " with id " + tagId,
+					noOfTagedArticles: _.random(200)+1,
+					portalRef: portal
 				};
+				res.noOfTagedArticles += tagPortal.noOfTagedArticles;
 				res.portals.push(tagPortal);
 			};
 			return res;
@@ -69,13 +103,19 @@
 				},
 				ui: {
 					isBlocked: false,
-					textFilter: ""
+					textFilter: "",
+					portalNameFilter: "",
+					mainPanel: {
+						expandedTags: {},
+						activeTagId: null,
+						activeTagOldNoOfTaggedArticles: null
+					}
 				}
 			};
-			_.each(Array(5000), function() {
+			_.each(Array(3000), function() {
 				data.db.portals.push(genPortal());
 			});
-			_.each(Array(50000), function() {
+			_.each(Array(40000), function() {
 				data.db.tags.push(genTag(data.db.portals));
 			});
 			return data;
@@ -85,67 +125,226 @@
 
 
 	</script>
+	<style>
+		.isExpanded {
+			background: #EEE;
+			border: 2px solid #555;
+		}
+	</style>
 </head>
 <body>
 <div id="app">
-  	<div>Portals: {{ $store.state.db.portals.length }}, Tags: {{ $store.state.db.tags.length }}, Ilosc par tagPortal: {{ $store.getters.calculatePortalTagsPairs }}</div>
-  	<div>{{ $store.state.ui.isBlocked ? "TAK" : "NIE" }}</div>
+  	<div class="container-fluid">
+  		<div>Portals: {{ $store.state.db.portals.length }}, Tags: {{ $store.state.db.tags.length }}, Ilosc par tagPortal: {{ $store.getters.calculatePortalTagsPairs }}</div>
+  	<!-- <div>{{ $store.state.ui.isBlocked ? "TAK" : "NIE" }}</div>
 	<button v-on:click="buttonClickRemovePortal">Remove portal - najbardziej obciazajaca obliczeniowo operacja jaka mozna sobie wyobrazic - celowo zaimplementowana srednio efektywnie</button>
 		<button v-on:click="buttonClickRemoveTag">Remove tag</button>
 		<button v-on:click="buttonClickRemoveRandomTag">removeRandomTag</button>
 	<button v-on:click="calculatePortalTagsPairs">calculatePortalTagsPair</button>
-	<button v-on:click="clickSortTags">sort tags</button>
-	<input v-on:keyup="changeRegexpFilter" placeholder="filter" :value="$store.state.ui.textFilter">
-	<test-component v-bind:mydata="$store.getters.calculatePortalTagsPairs" v-bind:tagslist="$store.state.db.tags">
-	</test-component>
+	<button v-on:click="clickSortTags">sort tags</button> -->
+	<!-- <input v-on:keyup="changePortalNameFilter" placeholder="portal filter" :value="$store.state.ui.portalNameFilter">
+	<input v-on:keyup="changeRegexpFilter" placeholder="filter" :value="$store.state.ui.textFilter"> -->
+
+	</div>
+
+<div class="container-fluid">
+	<div class="form-group row">
+		<label for="example-text-input" class="col-1 col-form-label">Nazwa portalu:</label>
+		<div class="col-5">
+			<input v-on:keyup="changePortalNameFilter" class="form-control" type="text" :value="$store.state.ui.portalNameFilter">
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="example-search-input" class="col-1 col-form-label">Nazwa tagu</label>
+		<div class="col-5">
+			<input class="form-control" type="text" v-on:keyup="changeRegexpFilter" :value="$store.state.ui.textFilter">
+		</div>
+	</div>
+</div>
+		<test-component v-bind:mydata="$store.getters.calculatePortalTagsPairs" v-bind:tagslist="$store.state.db.tags">
+		</test-component>
+	
+	
 </div>
 <script>
 	Vue.component('test-component', {
 		data: function () {
-			return { count: 0 }
+			return {
+				isExpanded: false,
+				expandedTags: {}
+			};
 		},
 		props: ['mydata', 'tagslist'],
 		computed: {
-			filteredtags: function() {
+			filteredtags: function(tagId) {
+				var self = this;
+				var isActiveTag = function(tagId) {
+					if (!!self.$store.state.ui.mainPanel.activeTagId && tagId === self.$store.state.ui.mainPanel.activeTagId) {
+						return self.$store.state.ui.mainPanel.activeTagOldNoOfTaggedArticles || true;
+					} 
+					return false;
+				};
 				if (this.$store.state.ui.textFilter && this.$store.state.ui.textFilter.length) {
 					// var regExp = new RegExp(this.$store.state.ui.textFilter);
+					// console.log('1');
 					var substring = this.$store.state.ui.textFilter;
-					var regExp = {
-						test: function(s) {
-							var pos = s.indexOf(substring);
-							if (pos == -1) {
-								return 0;
-							} else if (pos === 0) {
-								return 2;
-							} else {
-								return 1;
-							}
+					var tagNameOrderBy = function(s, tagData) {
+						var pos = s.toLowerCase().indexOf(substring.toLowerCase());
+						// console.log(substring, s, pos)
+						var noOfTagedArticles = Math.max(tagData.noOfTagedArticles, isActiveTag(tagData.id));
+						
+						if (pos == -1) {
+							return -200000000+noOfTagedArticles;
+						} else if (pos === 0) {
+							return 200000000 - noOfTagedArticles;
+						} else {
+							// console.log(tagData.noOfTagedArticles);
+							return 200000000+noOfTagedArticles;
+						}
+					};
+					var tagNameTest = function(s, tagData) {
+						var value = tagNameOrderBy(s, tagData);
+						return value < 0 ? false : true;
+					}
+				} else {
+					// console.log('2');
+					tagNameTest = x=>true;
+					tagNameOrderBy = (name, tag) => Math.max(tag.noOfTagedArticles, isActiveTag(tag.id));
+				}
+				if (this.$store.state.ui.portalNameFilter && this.$store.state.ui.portalNameFilter.length) {
+					// var regExp = new RegExp(this.$store.state.ui.textFilter);
+					var portalNameSubstring = this.$store.state.ui.portalNameFilter;
+					var portalNameTest = function(portalsNames) {
+						var pos = portalsNames.join("|").toLowerCase().indexOf(portalNameSubstring.toLowerCase());
+						// console.log(portalsNames, portalsNames.join("|"), portalNameSubstring, pos);
+						if (pos == -1) {
+							return 0;
+						} else if (pos === 0) {
+							return 1;
 						}
 					}
 				} else {
-					regExp = {
-						test: x=>true
-					}
+					portalNameTest = (x => true);
 				}
-				return _.orderBy(this.tagslist.filter(function(tag) {
-					return regExp.test(tag.id);
-				}).slice(0,500), tag => -regExp.test(tag.id) );
+
+				var result = this.tagslist.filter(function(tag) {
+					return isActiveTag(tag.id) || !!tagNameTest(tag.name, tag);
+				}); // odfiltrowujemy
+				result = result.filter(function(tag) {
+					return isActiveTag(tag.id) || !!portalNameTest(tag.portals.map(tagPortal => tagPortal.portalRef.name));
+				}); // odfiltrowujemy
+				console.log('!!!', tagNameOrderBy, isActiveTag(this.$store.state.ui.mainPanel.activeTagId), this.$store.state.ui.mainPanel.activeTagId);
+				result = _.orderBy(result, tag => -tagNameOrderBy(tag.name, tag) );
+				result = result.slice(0,100)
+				// console.log(result.map(x=>x.name).join(' , '));
+				// result.forEach(function(tag) {
+				// 	tag.isExpanded = regExp.test(tag.name, tag);
+				// });
+				return result;
 			}
 		},
 		//template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
-		template: "<div>Blablabla \
-			<div v-for='tag in filteredtags' :key='tag.id'> \
-			{{tag.id}} \
-			<span style='color:red' v-on:click='removeTag(tag)'>usun</span>    \
-			<span style='color:green' v-on:click='showTag(tag)'>pokaz</span>    \
-			</div>								\
-		</div>",
+		// template: `
+		// <table class="table">
+		// 	<tr v-for='tag in filteredtags' :key='tag.id'>
+		// 		<td>{{tag.id}}{{tag.name}} <strong v-on:click='expandView(tag)'> MORE </strong></td>
+		// 		<td>{{tag.name}} <small>{{tag.noOfTagedArticles}}</small> <small>{{tag.sortValue}}</small></td>
+		// 		<td><span class="btn btn-warning" style='' v-on:click='removeTag(tag)'>usun</span></td>
+		// 		<td><span class="btn btn-info" style='' v-on:click='showTag(tag)'>pokaz</span></td>
+		// 		<td>
+		// 			<template v-if="expandedTags[tag.id]">
+		// 				<span class="btn btn-primary">asdasd</span>
+		// 			</template>
+		// 		</td>
+		// 	</tr>
+		// </table>`,
+		template: `
+		<table class="table">
+			<panel-list-row v-bind:tag="tag" v-for='tag in filteredtags' :key='tag.id'>
+			</panel-list-row>
+		</table>`,
 		'methods': {
 			'removeTag': function(tag) {
 			    this.$store.commit('removeTag', tag.id);
 			},
 			'showTag': function(tag) {
 				alert(JSON.stringify(tag, '\n', null));
+			},
+			'expandView': function(tag) {
+				console.log(this.expandedTags);
+				// this.expandedTags[tag.id] = !this.expandedTags[tag.id]
+				// this.isExpanded = !this.isExpanded;
+			}
+		}
+	});
+
+	Vue.component('panel-list-row', {
+		data: function () {
+			return {
+				isExpanded: false,
+				expandedTags: {}
+			};
+		},
+		props: ['mydata', 'tag'],
+		computed: {
+			filteredtags: function() {
+				// this.$store.state
+			}
+		},
+		//template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+		template: `
+			<tbody v-bind:class='{isExpanded: isExpanded}'>
+			<tr>
+				<td>{{tag.id}} <!--<strong v-on:click='expandView(tag)'> MORE </strong>--></td>
+				<td colspan="2">
+					{{tag.name}} 
+						<span class="badge badge-pill badge-primary"> {{tag.noOfTagedArticles}} </span> 
+						<small>{{tag.sortValue}}</small> 
+					<br>
+					<small>Utworzony: {{tag.creationTime.toLocaleString()}}</small> 
+				</td>				
+				<td><span class="btn btn-info" style='' v-on:click='expandView(tag)'>toggle</span></td>
+				<td><span class="btn btn-warning" style='' v-on:click='removeTag(tag)'>usun</span></td>
+				<!--showTag(tag)-->
+			</tr>
+			 
+
+			<template v-if="isExpanded">
+			<tr v-for='tagPortal in tag.portals' :key='tagPortal.portalId'>
+				<td><small>root: {{tagPortal.portalId}}</small></td>
+				<td><strong>Portal: {{tagPortal.portalRef.name}}</strong> <span class="badge badge-pill badge-primary">{{tagPortal.noOfTagedArticles}}</span><br/>
+					Redirect: {{tagPortal.redirectTo ? tagPortal.redirectTo : 'NIE'}}
+				</td>
+				<td><span class="btn btn-info" style='' v-on:click=''>Edytuj glowke</span></td>
+				<td><span class="btn btn-info" style='' v-on:click=''>Lista artykulow</span></td>
+				<td><span class="btn btn-warning" style='' v-on:click='removeTagPortal(tag, tagPortal.portalId)'>Usun tag z portalu</span></td>
+			</tr>
+			</template>
+			 
+			</tbody>
+		`,
+		'methods': {
+			'removeTag': function(tag) {
+			    this.$store.commit('removeTag', tag.id);
+			},
+			'showTag': function(tag) {
+				alert(JSON.stringify(tag, '\n', null));
+			},
+			'expandView': function(tag) {
+				console.log(this.expandedTags, this.isExpanded);
+				// this.expandedTags[tag.id] = !this.expandedTags[tag.id]
+				this.$store.commit('UIsetActivePanelTag', {
+					tagId: tag.id,
+					activeTagNoOfTaggedArticles: tag.noOfTagedArticles
+				});
+				this.isExpanded = !this.isExpanded;
+			},
+			'removeTagPortal': function(tag, tagPortalId) {
+				// this.$store.commit('UIsetActivePanelTag', tag.id);
+			    this.$store.commit('removeTagPortal', {
+			    	tag: tag, 
+			    	portalId: tagPortalId
+			    });
 			}
 		}
 	});
@@ -163,12 +362,16 @@
 					});
 					return res;
 					// alert(res);
-			    }
+			    },
+			    isTagExpanded: function(tagId) {
+					return true;
+				} 	
 			},
 			mutations: {
 				increment (state) {
 				    state.count++
-				}, removeLastPortal: function(state) {
+				}, 
+				removeLastPortal: function(state) {
 				    var portal = state.db.portals.pop();
 				    state.ui.isBlocked = !state.ui.isBlocked;
 				    state.db.tags.forEach(function(tag) {
@@ -180,10 +383,12 @@
 				    		});
 				    	}
 				    });
-				}, removeRandomTag: function(state) {
+				}, 
+				removeRandomTag: function(state) {
 				    state.db.tags.splice(_.random(state.db.tags.length-1), 1); // mutates array
 				    state.ui.isBlocked = !state.ui.isBlocked;
-				}, removeLastTag: function(state) {
+				}, 
+				removeLastTag: function(state) {
 				    state.db.tags.pop();
 				    state.ui.isBlocked = !state.ui.isBlocked;
 				},
@@ -197,6 +402,22 @@
 				    	state.ui.isBlocked = !state.ui.isBlocked;
 				    }
 				},
+				removeTagPortal: function(state, data /* tag, portalId */) {					
+
+					var tagIndex = state.db.tags.findIndex(lTag => lTag.id == data.tag.id); //wiem ze to referencja ale ma byc nie za szybko
+					console.log(tagIndex);
+					if (tagIndex === -1) {
+				    	return;
+				    }				    
+					var tag = state.db.tags[tagIndex];
+					console.log(tagIndex, data.portalId, JSON.stringify(tag.portals));
+				    var tagPortalIndex = tag.portals.findIndex(lTagPortals => lTagPortals.portalId == data.portalId);
+				    console.log(tagPortalIndex);
+				    if (tagPortalIndex !== -1) {
+				    	state.db.tags[tagIndex].noOfTagedArticles -= state.db.tags[tagIndex].portals[tagPortalIndex].noOfTagedArticles;
+				    	state.db.tags[tagIndex].portals.splice(tagPortalIndex, 1);
+				    }				    
+				},
 				orderBy: function(state, orderFunction) {
 					console.log('1');
 				    orderFunction = orderFunction || (tag => tag.id);//(tag => tag.id.charCodeAt(0)*300 + tag.id.charCodeAt(1));
@@ -206,6 +427,17 @@
 				},
 				uiUpdateFilterText: function(state, newFilterText) {
 					state.ui.textFilter = newFilterText;
+				},
+				uiUpdatePortalFilterText: function(state, newFilterText) {
+					state.ui.portalNameFilter = newFilterText;
+				},
+				UImainPanelshowHideTag: function(state, tagId) {
+					state.ui.mainPanel.expandedTags[tagId] = !state.ui.mainPanel.expandedTags[tagId];
+				},
+				UIsetActivePanelTag: function(state, data) {
+					console.log('UIsetActivePanelTag', data, data.tagId);
+					state.ui.mainPanel.activeTagId = data.tagId;
+					state.ui.mainPanel.activeTagOldNoOfTaggedArticles = data.activeTagNoOfTaggedArticles;
 				}
 
 			}
@@ -242,6 +474,9 @@
 			changeRegexpFilter: _.debounce(function(event) {
 				this.$store.commit("uiUpdateFilterText", event.target.value);
 
+			}, 300),
+			changePortalNameFilter: _.debounce(function(event) {
+				this.$store.commit("uiUpdatePortalFilterText", event.target.value);
 			}, 300)
 		}
 	});
