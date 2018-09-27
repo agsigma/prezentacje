@@ -40,7 +40,7 @@
 				id: id,
 				name: genUniqueRandomWord(2).toUpperCase(),
 				description: 'This is portal name_' + id,
-				redirect: Math.random() <0.5 ? "http://www.sport.pl" : ""
+				redirect: Math.random() <0.3 ? "http://www.sport.pl" : ""
 			}
 		}
 
@@ -84,8 +84,8 @@
 				var portal = getRandomPortal(portals);
 				var tagPortal = {
 					portalId: portal.id,
-					redirectTo: null,
-					tagDescription: portal.name + " portal[" +  portal.id + "] description for tag " + tagName + " with id " + tagId,
+					redirectTo: Math.random() <0.3 ? "http://www.sport.pl" : "",
+					tagDescription: portal.name + " portal o roocie[" +  portal.id + "] i opisie dla tagu " + tagName + " o id " + tagId + 'To jest wlasnie ten opis - docelowo powinno to trzymac glowke tagowa dla danego tagu w okreslonym portalu',
 					noOfTagedArticles: _.random(200)+1,
 					portalRef: portal
 				};
@@ -332,7 +332,7 @@
 				<td><strong>Portal: {{tagPortal.portalRef.name}}</strong> <span class="badge badge-pill badge-primary">{{tagPortal.noOfTagedArticles}}</span><br/>
 					Redirect: {{tagPortal.redirectTo ? tagPortal.redirectTo : 'NIE'}}
 				</td>
-				<td><span class="btn btn-info" style='' v-on:click=''>Edytuj parametry</span></td>
+				<td><span class="btn btn-info" style='' v-on:click='showTagPortal(tagPortal)'>Edytuj parametry</span></td>
 				<td><span class="btn btn-info" style='' v-on:click=''>Lista artykulow</span></td>
 				<td><span class="btn btn-warning" style='' v-on:click='removeTagPortal(tag, tagPortal.portalId)'>Usun tag z portalu</span></td>
 			</tr>
@@ -365,6 +365,9 @@
 			    	tag: tag, 
 			    	portalId: tagPortalId
 			    });
+			},
+			'showTagPortal': function(tagPortal) {
+				alert('Nazwa: ' + tagPortal.portalRef.name +"\n" + 'Opis: ' + tagPortal.tagDescription);
 			}
 		}
 	});
