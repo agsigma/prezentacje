@@ -5,8 +5,8 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<!-- <script src="https://vuejs.org/js/vue.min.js"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+	<script src="https://vuejs.org/js/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.1.1/vuex.min.js"></script>
 	<script type="text/javascript">
 		var wordsList = ["łękowody", "chrzęszczyżewoszyce", "account","act","addition","adjustment","advertisement","agreement","air","amount","amusement","animal","answer","apparatus","approval","argument","art","attack","attempt","attention","attraction","authority","back","balance","base","behavior","belief","birth","bit","bite","blood","blow","body","brass","bread","breath","brother","building","burn","burst","business","butter","canvas","care","cause","chalk","chance","change","cloth","coal","color","comfort","committee","company","comparison","competition","condition","connection","control","cook","copper","copy","cork","cotton","cough","country","cover","crack","credit","crime","crush","cry","current","curve","damage","danger","daughter","day","death","debt","decision","degree","design","desire","destruction","detail","development","digestion","direction","discovery","discussion","disease","disgust","distance","distribution","division","doubt","drink","driving","dust","earth","edge","education","effect","end","error","event","example","exchange","existence","expansion","experience","expert","fact","fall","family","father","fear","feeling","fiction","field","fight","fire","flame","flight","flower","fold","food","force","form","friend","front","fruit","glass","gold","government","grain","grass","grip","group","growth","guide","harbor","harmony","hate","hearing","heat","help","history","hole","hope","hour","humor","ice","idea","impulse","increase","industry","ink","insect","instrument","insurance","interest","invention","iron","jelly","join","journey","judge","jump","kick","kiss","knowledge","land","language","laugh","law","lead","learning","leather","letter","level","lift","light","limit","linen","liquid","list","look","loss","love","machine","man","manager","mark","market","mass","meal","measure","meat","meeting","memory","metal","middle","milk","mind","mine","minute","mist","money","month","morning","mother","motion","mountain","move","music","name","nation","need","news","night","noise","note","number","observation","offer","oil","operation","opinion","order","organization","ornament","owner","page","pain","paint","paper","part","paste","payment","peace","person","place","plant","play","pleasure","point","poison","polish","porter","position","powder","power","price","print","process","produce","profit","property","prose","protest","pull","punishment","purpose","push","quality","question","rain","range","rate","ray","reaction","reading","reason","record","regret","relation","religion","representative","request","respect","rest","reward","rhythm","rice","river","road","roll","room","rub","rule","run","salt","sand","scale","science","sea","seat","secretary","selection","self","sense","servant","sex","shade","shake","shame","shock","side","sign","silk","silver","sister","size","sky","sleep","slip","slope","smash","smell","smile","smoke","sneeze","snow","soap","society","son","song","sort","sound","soup","space","stage","start","statement","steam","steel","step","stitch","stone","stop","story","stretch","structure","substance","sugar","suggestion","summer","support","surprise","swim","system","talk","taste","tax","teaching","tendency","test","theory","thing","thought","thunder","time","tin","top","touch","trade","transport","trick","trouble","turn","twist","unit","use","value","verse","vessel","view","voice","walk","war","wash","waste","water","wave","wax","way","weather","week","weight","wind","wine","winter","woman","wood","wool","word","work","wound","writing","year"].concat([
@@ -287,8 +287,8 @@
 		},
 		props: ['mydata', 'tag'],
 		computed: {
-			filteredtags: function() {
-				// this.$store.state
+			sortedportals: function() {
+				return _.orderBy(this.tag.portals, tagPortal => -tagPortal.noOfTagedArticles);
 			}
 		},
 		//template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
@@ -310,12 +310,12 @@
 			 
 
 			<template v-if="isExpanded">
-			<tr v-for='tagPortal in tag.portals' :key='tagPortal.portalId'>
+			<tr v-for='tagPortal in sortedportals' :key='tagPortal.portalId'>
 				<td><small>root: {{tagPortal.portalId}}</small></td>
 				<td><strong>Portal: {{tagPortal.portalRef.name}}</strong> <span class="badge badge-pill badge-primary">{{tagPortal.noOfTagedArticles}}</span><br/>
 					Redirect: {{tagPortal.redirectTo ? tagPortal.redirectTo : 'NIE'}}
 				</td>
-				<td><span class="btn btn-info" style='' v-on:click=''>Edytuj glowke</span></td>
+				<td><span class="btn btn-info" style='' v-on:click=''>Edytuj parametry</span></td>
 				<td><span class="btn btn-info" style='' v-on:click=''>Lista artykulow</span></td>
 				<td><span class="btn btn-warning" style='' v-on:click='removeTagPortal(tag, tagPortal.portalId)'>Usun tag z portalu</span></td>
 			</tr>
@@ -340,7 +340,10 @@
 				this.isExpanded = !this.isExpanded;
 			},
 			'removeTagPortal': function(tag, tagPortalId) {
-				// this.$store.commit('UIsetActivePanelTag', tag.id);
+				this.$store.commit('UIsetActivePanelTag', {
+					tagId: tag.id,
+					activeTagNoOfTaggedArticles: tag.noOfTagedArticles
+				});
 			    this.$store.commit('removeTagPortal', {
 			    	tag: tag, 
 			    	portalId: tagPortalId
@@ -435,9 +438,12 @@
 					state.ui.mainPanel.expandedTags[tagId] = !state.ui.mainPanel.expandedTags[tagId];
 				},
 				UIsetActivePanelTag: function(state, data) {
+					// to plus triki w sortoweaniu zeby nam aktualny tag nie znikal z widokow po usunieciu portalu(z powodu zmniejszenia liczby powiazanych artykulow)
 					console.log('UIsetActivePanelTag', data, data.tagId);
-					state.ui.mainPanel.activeTagId = data.tagId;
-					state.ui.mainPanel.activeTagOldNoOfTaggedArticles = data.activeTagNoOfTaggedArticles;
+					if (state.ui.mainPanel.activeTagId != data.tagId) {
+						state.ui.mainPanel.activeTagId = data.tagId;					
+						state.ui.mainPanel.activeTagOldNoOfTaggedArticles = data.activeTagNoOfTaggedArticles;
+					}
 				}
 
 			}
