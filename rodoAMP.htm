@@ -1040,24 +1040,52 @@
                     <a href="http://pomoc.gazeta.pl/pomoc/1,154322,23439313,zgody-na-wyswietlanie-reklam-targetowanych.html">kliknij
                         tutaj</a>.
                 </p>
-                <div class="hide" [class]="ampRodoShowMoreOn == 'yes' ? 'show' : 'hide'">
-                    <p class="content" id="rodoPopupMore">
+                <div class="hide" [class]="ampRodoShowMoreOn == 'yes' ? 'show' : 'hide'"  id="rodoPopupMore">
+                    <p class="content">
                         <br><br>
-                        Blabahsdkhkjahjdjkdsajkdsajk sdah hfjkh f hkfdshkjkf sd jkjdsfk jk
+                        <strong>Czego dotyczy zgoda?</strong>
+                        <br>
+                        Przystępując do korzystania z serwisu poprzez wykonanie działań zmierzających do zapoznania się z 
+                        zawartymi w nim treściami, w szczególności przez scrollowanie, klikanie w linki do elementów serwisu, 
+                        wyrażasz zgodę na przetwarzanie danych osobowych przez Agora S.A. i jej zaufanych partnerów w celach marketingowych, 
+                        w szczególności na potrzeby wyświetlania reklam targetowanych.
+                        <br>
+                        Brak wyrażonej zgody może skutkować większą liczbą reklam, w dużej mierze niedopasowanych do potrzeb użytkownika.
+                        <br>
+                        Informujemy też, że korzystanie z serwisu bez zmiany ustawień przeglądarki oznacza wyrażenie zgody na zapisywanie plików 
+                        cookies i im podobnych technologii w urządzeniu końcowym. Pliki te wykorzystywane są m.in: w celach analitycznych, 
+                        dopasowywania treści oraz marketingowym. Więcej informacji w <a href="http://pomoc.gazeta.pl/pomoc/1,154322,23439313,rodo.html">Politykach Prywatności poszczególnych serwisów</a>.
+                    <p>
+                        <br>
+                        <strong>Kto odpowiada za przetwarzanie danych?</strong><br> 
+                        Administratorem danych jest Agora S.A. z siedzibą w Warszawie przy ul. Czerskiej 8/10 oraz nasi zaufani partnerzy, 
+                        z którymi współpracujemy głównie w celach marketingowych. <a href="http://pomoc.gazeta.pl/pomoc/7,154322,23437548,lista-zaufanych-partnerow.html">Lista partnerów.</a>
                         <br><br>
-                        Przystępując do korzystania z serwisu poprzez wykonanie działań zmierzających do zapoznania się
-                        z zawartymi w nim treściami, w szczególności przez scrollowanie, klikanie w linki do elementów
-                        serwisu, wyrażasz zgodę na przetwarzanie danych osobowych przez Agora S.A. i jej zaufanych
-                        partnerów w celach marketingowych, w szczególności na potrzeby wyświetlania reklam
-                        targetowanych.
-
+                        <strong>Jakie dane są przetwarzane?</strong><br>
+                        Przetwarzane są przede wszystkim następujące dane: adres IP, adres URL żądania, nazwa domeny, identyfikator 
+                        urządzenia, mobilny identyfikator reklamowy, typ przeglądarki, język przeglądarki, liczba kliknięć, ilość czasu spędzonego 
+                        na poszczególnych stronach, data i godzina korzystania z Serwisu, typ i wersja systemu operacyjnego, rozdzielczość ekranu, 
+                        dane zbierane w dziennikach serwera, a także inne podobne informacje.
+                        <br><br>    
+                        <strong>Po co te dane?</strong><br>
+                        Dane uzyskane w serwisach Agora S.A. za pomocą plików cookies i im podobnych technologii są przetwarzane na bazie 
+                        odpowiednich podstaw prawych i w poszczególnych celach:
+                    </p>
+                    
+                    <ul>
+                        <li>na podstawie prawnie uzasadnionego interesu Agora S.A. - w celach prowadzenia działań marketingu własnego Agora S.A. polegających na dopasowaniu treści i reklam, na potrzeby badań analitycznych w celach marketingowych, dla dokonywania analiz i badania ruchu na stronach, w celu zapewnienia bezpieczeństwa usług, w celu dochodzenia praw i roszczeń, </li>
+                        <li>na podstawie zgody - w celach marketingowych Agora S.A. i jej zaufanych partnerów-reklamodawców, polegających na dopasowaniu treści i reklam.</li>
+                    </ul>
+                    <p>
+                        <br>
+                        <strong>Prawa użytkownika:</strong><br>
+                        Po wyrażeniu zgody na przetwarzanie danych osobowych można ją wycofać. Nie wpływa to jednak na legalność działań w okresie, gdy zgoda była wyrażona.<br>
+                        Użytkownikom przysługuje też prawo dostępu do własnych danych, do ich sprostowania, usuwania, prawo do przenoszenia danych, wyrażenia sprzeciwu, prawo do ograniczenia przetwarzania. Przysługuje również prawo do wniesienia skargi do organu nadzorczego. Więcej na temat uprawnień w <a href="http://pomoc.gazeta.pl/pomoc/1,154322,23439313,rodo.html">Politykach Prywatności poszczególnych serwisów.</a>.
                         <br><br>
-                        Przystępując do korzystania z serwisu poprzez wykonanie działań zmierzających do zapoznania się
-                        z zawartymi w nim treściami, w szczególności przez scrollowanie, klikanie w linki do elementów
-                        serwisu, wyrażasz zgodę na przetwarzanie danych osobowych przez Agora S.A. i jej zaufanych
-                        partnerów w celach marketingowych, w szczególności na potrzeby wyświetlania reklam
-                        targetowanych.
-
+                        <strong>Zgoda/wycofanie zgody</strong><br> 
+                        W każdej chwili można wycofać zgodę na instalowanie cookies i podobnych technologii. Można to zrobić poprzez zmianę ustawień przeglądarki. 
+                        <br><br>
+                        O zgodzie na przetwarzanie danych osobowych do celów marketingowych w szczególności związanych z wyświetlaniem reklam targetowanych, można zadecydować tu:
                     </p>
 
                 </div>
@@ -1066,7 +1094,7 @@
                 <!-- <button on="tap:consent-element.dismiss" role="button" class="decisionBtn">Rezygnuję</button> -->
                 <!-- change:AMP.setState({visibility: event.value=='ES'?'hide':'show'}) -->
                 <button on="tap:consent-element.accept" role="button" class="decisionBtn" [class]="ampRodoShowMoreOn == 'yes' ? 'decisionBtn hide' : 'decisionBtn show'">Akceptuję</button>
-                <button on="tap:AMP.setState({ampRodoShowMoreOn:'yes'})" role="button" [class]="ampRodoShowMoreOn == 'yes' ? 'decisionBtn hide showMore' : 'decisionBtn show showMore'" class="decisionBtn showMore">Dowiedz sie więcej.</button>
+                <button on="tap:AMP.setState({ampRodoShowMoreOn:'yes'})" role="button" [class]="ampRodoShowMoreOn == 'yes' ? 'decisionBtn hide showMore' : 'decisionBtn show showMore'" class="decisionBtn showMore">Więcej.</button>
 
                 
 
@@ -1089,6 +1117,10 @@
             }
             #consent-element #consent-ui .showMore {
                 opacity: 0.8;
+            }
+            #rodoPopupMore ul {
+                list-style: disc;
+                margin-left: 15px;
             }
         </style>
 
