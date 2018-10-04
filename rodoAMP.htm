@@ -1015,7 +1015,7 @@
       <button on="tap:consent-element.accept" role="button" class="close">X</button>
     </div>
     <div class="contentWrap">
-      <p class="content">
+      <p class="content" [class]="ampRodoShowMoreOn == 'yes' ? 'hide content' : 'show content'">
         Prosimy Ci&#281; o wyra&#380;enie dobrowolnej zgody na przetwarzanie Twoich danych osobowych przez
         Agora S.A. i <a href="http://pomoc.gazeta.pl/pomoc/7,154322,23437548,lista-zaufanych-partnerow.html">Zaufanych
           Partner&#243;w Agora S.A.</a>
@@ -1042,7 +1042,6 @@
       </p>
       <div class="hide" [class]="ampRodoShowMoreOn == 'yes' ? 'show' : 'hide'" id="rodoPopupMore">
         <p>
-            <br><br>
             <strong>Czego dotyczy zgoda?</strong>
             <br>
             Przyst&#281;puj&#261;c do korzystania z serwisu poprzez wykonanie dzia&#322;a&#324; zmierzaj&#261;cych do zapoznania si&#281; z zawartymi w nim tre&#347;ciami, w szczeg&#243;lno&#347;ci przez scrollowanie, klikanie w linki do element&#243;w serwisu, wyra&#380;asz zgod&#281; na przetwarzanie danych osobowych przez Agora S.A. i jej zaufanych partner&#243;w w celach marketingowych, w szczeg&#243;lno&#347;ci na potrzeby wy&#347;wietlania reklam targetowanych.
@@ -1104,7 +1103,7 @@
                 /* border: 10px solid green; */
             }
             #consent-element #consent-ui .showMore {
-                opacity: 0.8;
+                opacity: 1;
             }
             #rodoPopupMore ul {
                 list-style: disc;
