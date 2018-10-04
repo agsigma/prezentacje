@@ -1059,23 +1059,25 @@
                         targetowanych.
 
                     </p>
-                    <div class="btnsWrap">
-
-                        <button on="tap:consent-element.dismiss" role="button" class="decisionBtn">Rezygnuję</button>
-                        <button on="tap:consent-element.accept" role="button" class="decisionBtn">Akceptuję</button>
-                    </div>
 
                 </div>
             </div>
             <div id="post-consent-ui" class="btnsWrap show" [class]="ampRodoShowMoreOn == 'yes' ? 'btnsWrap hide' : 'btnsWrap show'">
                 <!-- <button on="tap:consent-element.dismiss" role="button" class="decisionBtn">Rezygnuję</button> -->
                 <!-- change:AMP.setState({visibility: event.value=='ES'?'hide':'show'}) -->
-                <button on="tap:AMP.setState({ampRodoShowMoreOn:'yes'})" role="button" class="decisionBtn">Wiecej</button>
-                <button on="tap:consent-element.accept" role="button" class="decisionBtn">Akceptuję</button>
+                <button on="tap:consent-element.accept" role="button" class="decisionBtn" [class]="ampRodoShowMoreOn == 'yes' ? 'decisionBtn hide' : 'decisionBtn show'">Akceptuję</button>
+                <button on="tap:AMP.setState({ampRodoShowMoreOn:'yes'})" role="button" [class]="ampRodoShowMoreOn == 'yes' ? 'decisionBtn hide showMore' : 'decisionBtn show showMore'" class="decisionBtn showMore">Dowiedz sie więcej.</button>
+
+                
+
+                <button [class]="ampRodoShowMoreOn == 'yes' ? 'show decisionBtn' : 'hide decisionBtn'" on="tap:consent-element.accept" role="button" class="hide decisionBtn">Akceptuję</button>
+                <button [class]="ampRodoShowMoreOn == 'yes' ? 'show decisionBtn' : 'hide decisionBtn'" on="tap:consent-element.dismiss" role="button" class="hide decisionBtn">Rezygnuję</button>
+                        
+                    
             </div>
         </div>
         <style>
-            #consent-element #consent-ui .hide {
+            #consent-element .hide {
                 /* display; none; */
                 /* border: 10px solid red; */
                 display: none;
@@ -1084,6 +1086,9 @@
             #consent-element #consent-ui .show {
                 /* display; none; */
                 /* border: 10px solid green; */
+            }
+            #consent-element #consent-ui .showMore {
+                opacity: 0.8;
             }
         </style>
 
