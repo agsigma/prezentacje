@@ -996,10 +996,10 @@
 
     <!-- version: v1.5 -->
 
-    <!-- rodo asp v 0.1 -->
+    <!-- rodo asp v 0.1  "https://rodo-test.agora.pl/agreement/ampCheck",-->
+<amp-consent id="consent-element" layout="nodisplay">
 
-    <amp-consent id="consent-element" layout="nodisplay">
-        <script type="application/json">
+  <script type="application/json">
     {
       "consents": {
         "my-consent": {
@@ -1009,105 +1009,93 @@
       }
     }
   </script>
-        <div class="rodoPopup" id="consent-ui">
-            <div class="headWrap">
-                <p class="header">Drogi u&#380;ytkowniku</p>
-                <button on="tap:consent-element.accept" role="button" class="close">X</button>
-            </div>
-            <div class="contentWrap">
-                <p class="content">
-                    Prosimy Ci&#281; o wyra&#380;enie dobrowolnej zgody na przetwarzanie Twoich danych osobowych przez
-                    Agora S.A. i <a href="http://pomoc.gazeta.pl/pomoc/7,154322,23437548,lista-zaufanych-partnerow.html">Zaufanych
-                        Partner&#243;w Agora S.A.</a>
-                    do cel&#243;w marketingowych, w szczeg&#243;lno&#347;ci na potrzeby wy&#347;wietlania reklam
-                    dopasowanych do Twoich zainteresowa&#324;
-                    i preferencji w serwisach Agora S.A. i w Internecie. Pami&#281;taj, &#380;e wyra&#380;enie zgody
-                    jest dobrowolne,
-                    a wyra&#380;on&#261; zgod&#281; mo&#380;esz w ka&#380;dej chwili wycofa&#263;.
-                    <br><br>
-                    Chc&#261;c, aby korzystanie z naszego Serwisu by&#322;o dla Ciebie komfortowe staramy si&#281;
-                    dopasowa&#263; dost&#281;pne w Serwisie tre&#347;ci do Twoich zainteresowa&#324; i preferencji.
-                    Jest to mo&#380;liwe dzi&#281;ki przechowywaniu w Twojej przegl&#261;darce plik&#243;w cookies i im
-                    podobnych technologii.
-                    Zwracamy si&#281; do Ciebie z pro&#347;b&#261; o wyra&#380;enie zgody na zapisywanie plik&#243;w
-                    cookies i im podobnych technologii w Twoim urz&#261;dzeniu ko&#324;cowym oraz na korzystanie z
-                    informacji w nich zapisanych.
-                    <br><br>
-                    Klikni&#281;cie &#8222;Akceptuj&#281;&#8221; oznacza wyra&#380;enie zgody na przetwarzanie
-                    Twoich danych osobowych oraz wykorzystywanie plik&#243;w cookies i podobnych technologii na
-                    zasadach okre&#347;lonych w niniejszym komunikacie oraz Polityce Prywatno&#347;ci.
-                    Je&#380;eli pragniesz dowiedzie&#263; si&#281; wi&#281;cej o swojej zgodzie,
-                    <a href="http://pomoc.gazeta.pl/pomoc/1,154322,23439313,zgody-na-wyswietlanie-reklam-targetowanych.html">kliknij
-                        tutaj</a>.
-                </p>
-                <div class="hide" [class]="ampRodoShowMoreOn == 'yes' ? 'show' : 'hide'"  id="rodoPopupMore">
-                    <p class="content">
-                        <br><br>
-                        <strong>Czego dotyczy zgoda?</strong>
-                        <br>
-                        Przystępując do korzystania z serwisu poprzez wykonanie działań zmierzających do zapoznania się z 
-                        zawartymi w nim treściami, w szczególności przez scrollowanie, klikanie w linki do elementów serwisu, 
-                        wyrażasz zgodę na przetwarzanie danych osobowych przez Agora S.A. i jej zaufanych partnerów w celach marketingowych, 
-                        w szczególności na potrzeby wyświetlania reklam targetowanych.
-                        <br>
-                        Brak wyrażonej zgody może skutkować większą liczbą reklam, w dużej mierze niedopasowanych do potrzeb użytkownika.
-                        <br>
-                        Informujemy też, że korzystanie z serwisu bez zmiany ustawień przeglądarki oznacza wyrażenie zgody na zapisywanie plików 
-                        cookies i im podobnych technologii w urządzeniu końcowym. Pliki te wykorzystywane są m.in: w celach analitycznych, 
-                        dopasowywania treści oraz marketingowym. Więcej informacji w <a href="http://pomoc.gazeta.pl/pomoc/1,154322,23439313,rodo.html">Politykach Prywatności poszczególnych serwisów</a>.
-                    <p>
-                        <br>
-                        <strong>Kto odpowiada za przetwarzanie danych?</strong><br> 
-                        Administratorem danych jest Agora S.A. z siedzibą w Warszawie przy ul. Czerskiej 8/10 oraz nasi zaufani partnerzy, 
-                        z którymi współpracujemy głównie w celach marketingowych. <a href="http://pomoc.gazeta.pl/pomoc/7,154322,23437548,lista-zaufanych-partnerow.html">Lista partnerów.</a>
-                        <br><br>
-                        <strong>Jakie dane są przetwarzane?</strong><br>
-                        Przetwarzane są przede wszystkim następujące dane: adres IP, adres URL żądania, nazwa domeny, identyfikator 
-                        urządzenia, mobilny identyfikator reklamowy, typ przeglądarki, język przeglądarki, liczba kliknięć, ilość czasu spędzonego 
-                        na poszczególnych stronach, data i godzina korzystania z Serwisu, typ i wersja systemu operacyjnego, rozdzielczość ekranu, 
-                        dane zbierane w dziennikach serwera, a także inne podobne informacje.
-                        <br><br>    
-                        <strong>Po co te dane?</strong><br>
-                        Dane uzyskane w serwisach Agora S.A. za pomocą plików cookies i im podobnych technologii są przetwarzane na bazie 
-                        odpowiednich podstaw prawych i w poszczególnych celach:
-                    </p>
-                    
-                    <ul>
-                        <li>na podstawie prawnie uzasadnionego interesu Agora S.A. - w celach prowadzenia działań marketingu własnego Agora S.A. polegających na dopasowaniu treści i reklam, na potrzeby badań analitycznych w celach marketingowych, dla dokonywania analiz i badania ruchu na stronach, w celu zapewnienia bezpieczeństwa usług, w celu dochodzenia praw i roszczeń, </li>
-                        <li>na podstawie zgody - w celach marketingowych Agora S.A. i jej zaufanych partnerów-reklamodawców, polegających na dopasowaniu treści i reklam.</li>
-                    </ul>
-                    <p>
-                        <br>
-                        <strong>Prawa użytkownika:</strong><br>
-                        Po wyrażeniu zgody na przetwarzanie danych osobowych można ją wycofać. Nie wpływa to jednak na legalność działań w okresie, gdy zgoda była wyrażona.<br>
-                        Użytkownikom przysługuje też prawo dostępu do własnych danych, do ich sprostowania, usuwania, prawo do przenoszenia danych, wyrażenia sprzeciwu, prawo do ograniczenia przetwarzania. Przysługuje również prawo do wniesienia skargi do organu nadzorczego. Więcej na temat uprawnień w <a href="http://pomoc.gazeta.pl/pomoc/1,154322,23439313,rodo.html">Politykach Prywatności poszczególnych serwisów.</a>.
-                        <br><br>
-                        <strong>Zgoda/wycofanie zgody</strong><br> 
-                        W każdej chwili można wycofać zgodę na instalowanie cookies i podobnych technologii. Można to zrobić poprzez zmianę ustawień przeglądarki. 
-                        <br><br>
-                        O zgodzie na przetwarzanie danych osobowych do celów marketingowych w szczególności związanych z wyświetlaniem reklam targetowanych, można zadecydować tu:
-                    </p>
+  <div class="rodoPopup" id="consent-ui">
+    <div class="headWrap">
+      <p class="header">Drogi u&#380;ytkowniku</p>
+      <button on="tap:consent-element.accept" role="button" class="close">X</button>
+    </div>
+    <div class="contentWrap">
+      <p class="content">
+        Prosimy Ci&#281; o wyra&#380;enie dobrowolnej zgody na przetwarzanie Twoich danych osobowych przez
+        Agora S.A. i <a href="http://pomoc.gazeta.pl/pomoc/7,154322,23437548,lista-zaufanych-partnerow.html">Zaufanych
+          Partner&#243;w Agora S.A.</a>
+        do cel&#243;w marketingowych, w szczeg&#243;lno&#347;ci na potrzeby wy&#347;wietlania reklam
+        dopasowanych do Twoich zainteresowa&#324;
+        i preferencji w serwisach Agora S.A. i w Internecie. Pami&#281;taj, &#380;e wyra&#380;enie zgody
+        jest dobrowolne,
+        a wyra&#380;on&#261; zgod&#281; mo&#380;esz w ka&#380;dej chwili wycofa&#263;.
+        <br><br>
+        Chc&#261;c, aby korzystanie z naszego Serwisu by&#322;o dla Ciebie komfortowe staramy si&#281;
+        dopasowa&#263; dost&#281;pne w Serwisie tre&#347;ci do Twoich zainteresowa&#324; i preferencji.
+        Jest to mo&#380;liwe dzi&#281;ki przechowywaniu w Twojej przegl&#261;darce plik&#243;w cookies i im
+        podobnych technologii.
+        Zwracamy si&#281; do Ciebie z pro&#347;b&#261; o wyra&#380;enie zgody na zapisywanie plik&#243;w
+        cookies i im podobnych technologii w Twoim urz&#261;dzeniu ko&#324;cowym oraz na korzystanie z
+        informacji w nich zapisanych.
+        <br><br>
+        Klikni&#281;cie &#8222;Akceptuj&#281;&#8221; oznacza wyra&#380;enie zgody na przetwarzanie
+        Twoich danych osobowych oraz wykorzystywanie plik&#243;w cookies i podobnych technologii na
+        zasadach okre&#347;lonych w niniejszym komunikacie oraz Polityce Prywatno&#347;ci.
+        Je&#380;eli pragniesz dowiedzie&#263; si&#281; wi&#281;cej o swojej zgodzie,
+        <a href="http://pomoc.gazeta.pl/pomoc/1,154322,23439313,zgody-na-wyswietlanie-reklam-targetowanych.html">kliknij
+          tutaj</a>.
+      </p>
+      <div class="hide" [class]="ampRodoShowMoreOn == 'yes' ? 'show' : 'hide'" id="rodoPopupMore">
+        <p>
+            <br><br>
+            <strong>Czego dotyczy zgoda?</strong>
+            <br>
+            Przyst&#281;puj&#261;c do korzystania z serwisu poprzez wykonanie dzia&#322;a&#324; zmierzaj&#261;cych do zapoznania si&#281; z zawartymi w nim tre&#347;ciami, w szczeg&#243;lno&#347;ci przez scrollowanie, klikanie w linki do element&#243;w serwisu, wyra&#380;asz zgod&#281; na przetwarzanie danych osobowych przez Agora S.A. i jej zaufanych partner&#243;w w celach marketingowych, w szczeg&#243;lno&#347;ci na potrzeby wy&#347;wietlania reklam targetowanych.
+            <br>
+            Brak wyra&#380;onej zgody mo&#380;e skutkowa&#263; wi&#281;ksz&#261; liczb&#261; reklam, w du&#380;ej mierze niedopasowanych do potrzeb u&#380;ytkownika.
+            <br>
+            Informujemy te&#380;, &#380;e korzystanie z serwisu bez zmiany ustawie&#324; przegl&#261;darki oznacza wyra&#380;enie zgody na zapisywanie plik&#243;w cookies i im podobnych technologii w urz&#261;dzeniu ko&#324;cowym. Pliki te wykorzystywane s&#261; m.in: w celach analitycznych, dopasowywania tre&#347;ci oraz marketingowym. Wi&#281;cej informacji w <a href="http://pomoc.gazeta.pl/pomoc/1,154322,23439313,rodo.html">Politykach Prywatno&#347;ci poszczeg&#243;lnych serwis&#243;w</a>.
+        </p>
+        <p>
+            <br>
+            <strong>Kto odpowiada za przetwarzanie danych?</strong><br>
+            Administratorem danych jest Agora S.A. z siedzib&#261; w Warszawie przy ul. Czerskiej 8/10 oraz nasi zaufani partnerzy, z kt&#243;rymi wsp&#243;&#322;pracujemy g&#322;&#243;wnie w celach marketingowych. <a href="http://pomoc.gazeta.pl/pomoc/7,154322,23437548,lista-zaufanych-partnerow.html">Lista partner&#243;w.</a>
+            <br><br>
+            <strong>Jakie dane s&#261; przetwarzane?</strong><br>
+            Przetwarzane s&#261; przede wszystkim nast&#281;puj&#261;ce dane: adres IP, adres URL &#380;&#261;dania, nazwa domeny, identyfikator urz&#261;dzenia, mobilny identyfikator reklamowy, typ przegl&#261;darki, j&#281;zyk przegl&#261;darki, liczba klikni&#281;&#263;, ilo&#347;&#263; czasu sp&#281;dzonego na poszczeg&#243;lnych stronach, data i godzina korzystania z Serwisu, typ i wersja systemu operacyjnego, rozdzielczo&#347;&#263; ekranu, dane zbierane w dziennikach serwera, a tak&#380;e inne podobne informacje.
+            <br><br>
+            <strong>Po co te dane?</strong><br>
+            Dane uzyskane w serwisach Agora S.A. za pomoc&#261; plik&#243;w cookies i im podobnych technologii s&#261; przetwarzane na bazie odpowiednich podstaw prawych i w poszczeg&#243;lnych celach:
+        </p>
 
-                </div>
-            </div>
-            <div id="post-consent-ui" class="btnsWrap show" [class]="ampRodoShowMoreOn == 'yes' ? 'btnsWrap hide' : 'btnsWrap show'">
-                <!-- <button on="tap:consent-element.dismiss" role="button" class="decisionBtn">Rezygnuję</button> -->
-                <!-- change:AMP.setState({visibility: event.value=='ES'?'hide':'show'}) -->
-                <button on="tap:consent-element.accept" role="button" class="decisionBtn" [class]="ampRodoShowMoreOn == 'yes' ? 'decisionBtn hide' : 'decisionBtn show'">Akceptuję</button>
-                <button on="tap:AMP.setState({ampRodoShowMoreOn:'yes'})" role="button" [class]="ampRodoShowMoreOn == 'yes' ? 'decisionBtn hide showMore' : 'decisionBtn show showMore'" class="decisionBtn showMore">Więcej</button>
+        <ul>
+            <li>na podstawie prawnie uzasadnionego interesu Agora S.A. - w celach prowadzenia dzia&#322;a&#324; marketingu w&#322;asnego Agora S.A. polegaj&#261;cych na dopasowaniu tre&#347;ci i reklam, na potrzeby bada&#324; analitycznych w celach marketingowych, dla dokonywania analiz i badania ruchu na stronach, w celu zapewnienia bezpiecze&#324;stwa us&#322;ug, w celu dochodzenia praw i roszcze&#324;,</li>
+            <li>na podstawie zgody - w celach marketingowych Agora S.A. i jej zaufanych partner&#243;w-reklamodawc&#243;w, polegaj&#261;cych na dopasowaniu tre&#347;ci i reklam.</li>
+        </ul>
+        <p>
+            <br>
+            <strong>Prawa użytkownika:</strong><br>
+            Po wyra&#380;eniu zgody na przetwarzanie danych osobowych mo&#380;na j&#261; wycofa&#263;. Nie wp&#322;ywa to jednak na legalno&#347;&#263; dzia&#322;a&#324; w okresie, gdy zgoda by&#322;a wyra&#380;ona.<br>
+            U&#380;ytkownikom przys&#322;uguje te&#380; prawo dost&#281;pu do w&#322;asnych danych, do ich sprostowania, usuwania, prawo do przenoszenia danych, wyra&#380;enia sprzeciwu, prawo do ograniczenia przetwarzania. Przys&#322;uguje r&#243;wnie&#380; prawo do wniesienia skargi do organu nadzorczego. Wi&#281;cej na temat uprawnie&#324; w <a href="http://pomoc.gazeta.pl/pomoc/1,154322,23439313,rodo.html">Politykach Prywatno&#347;ci poszczeg&#243;lnych serwis&#243;w.</a>.
+            <br><br>
+            <strong>Zgoda/wycofanie zgody</strong><br>
+            W ka&#380;dej chwili mo&#380;na wycofa&#263; zgod&#281; na instalowanie cookies i podobnych technologii. Mo&#380;na to zrobi&#263;
+            poprzez zmian&#281; ustawie&#324; przegl&#261;darki.
+            <br><br>
+            O zgodzie na przetwarzanie danych osobowych do cel&#243;w marketingowych w szczeg&#243;lno&#347;ci zwi&#261;zanych z
+            wy&#347;wietlaniem reklam targetowanych, mo&#380;na zadecydowa&#263; tu:
+        </p>
 
-                
-
-                <button [class]="ampRodoShowMoreOn == 'yes' ? 'show decisionBtn' : 'hide decisionBtn'" on="tap:consent-element.accept" role="button" class="hide decisionBtn">Akceptuję</button>
-                <button [class]="ampRodoShowMoreOn == 'yes' ? 'show decisionBtn' : 'hide decisionBtn'" on="tap:consent-element.dismiss" role="button" class="hide decisionBtn">Rezygnuję</button>
-                        
-                    
-            </div>
+      </div>
+    </div>
+    <div id="post-consent-ui" class="btnsWrap">
+        <button on="tap:consent-element.accept" role="button" class="decisionBtn" [class]="ampRodoShowMoreOn == 'yes' ? 'decisionBtn hide' : 'decisionBtn show'">Akceptuję</button>
+        <div class="moreWrapper" [class]="ampRodoShowMoreOn == 'yes' ? 'hide moreWrapper' : 'show moreWrapper'">
+            <span on="tap:AMP.setState({ampRodoShowMoreOn:'yes'})" role="button" class="showMore">Dowiedz si&#281; wi&#281;cej</span>
         </div>
+        <button [class]="ampRodoShowMoreOn == 'yes' ? 'show decisionBtn' : 'hide decisionBtn'" on="tap:consent-element.dismiss" role="button" class="hide decisionBtn">Rezygnuję</button>
+        <button [class]="ampRodoShowMoreOn == 'yes' ? 'show decisionBtn' : 'hide decisionBtn'" on="tap:consent-element.accept" role="button" class="hide decisionBtn">Akceptuję</button>
+    </div>
+  </div>
+  
+</amp-consent>
         <style>
-            #consent-element .hide {
-                /* display; none; */
-                /* border: 10px solid red; */
+            #consent-element #consent-ui .hide {
                 display: none;
             }
 
@@ -1122,10 +1110,40 @@
                 list-style: disc;
                 margin-left: 15px;
             }
+
+            #consent-element .rodoPopup .btnsWrap {
+                flex-wrap: wrap;
+                align-content: center;
+            }
+
+            #post-consent-ui .moreWrapper {
+                display: block;
+                width: 100%;
+                text-align: center;
+                margin-top: 8px;
+            }
+
+
+
+            /* post-consent-ui {
+                position:relative;
+            }
+
+            #post-consent-ui:before {
+                content: "";
+                left: 50%;
+                margin-left: -10px;
+                height:10px;
+                width: 10px;
+                position: absolute;
+                top:0px;
+                border-top: 3px solid black;
+                border-left: 3px solid black;
+
+            } */
         </style>
 
-    </amp-consent>
-
+    
     <!--14342, position: rodo, name: rodo, MeasurableViewWrapper : PortalModuleView : DefaultModuleView : InheritingModuleInternalResourceView : /fix/amp/rodo.asp : /fix/amp/rodo.asp, emptyBean-->
 
 
