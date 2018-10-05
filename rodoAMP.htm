@@ -1085,7 +1085,7 @@
     <div id="post-consent-ui" class="btnsWrap">
         <button on="tap:consent-element.accept" role="button" class="decisionBtn" [class]="ampRodoShowMoreOn == 'yes' ? 'decisionBtn hide' : 'decisionBtn show'">Akceptuję</button>
         <div class="moreWrapper" [class]="ampRodoShowMoreOn == 'yes' ? 'hide moreWrapper' : 'show moreWrapper'">
-            <span on="tap:AMP.setState({ampRodoShowMoreOn:'yes'})" role="button" class="showMore">Dowiedz si&#281; wi&#281;cej</span>
+            <span on="tap:AMP.setState({ampRodoShowMoreOn:'yes'})" tabindex role="button" class="showMore">Dowiedz si&#281; wi&#281;cej</span>
         </div>
         <button [class]="ampRodoShowMoreOn == 'yes' ? 'show decisionBtn' : 'hide decisionBtn'" on="tap:consent-element.dismiss" role="button" class="hide decisionBtn">Rezygnuję</button>
         <button [class]="ampRodoShowMoreOn == 'yes' ? 'show decisionBtn' : 'hide decisionBtn'" on="tap:consent-element.accept" role="button" class="hide decisionBtn">Akceptuję</button>
